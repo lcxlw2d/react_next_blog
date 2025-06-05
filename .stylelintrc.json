@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "stylelint-less"
+  ],
+  "customSyntax": "postcss-less",
+  "rules": {
+    "less/color-no-invalid-hex": true,
+    "less/no-duplicate-variables": true,
+    "less/no-duplicate-mixins": true,
+    "less/comment-no-empty": true,
+    "less/no-undefined-variables": true
+  }
+}

@@ -1,0 +1,41 @@
+.navbar {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px 200px;
+}
+
+.logoArea {
+  margin-right: 60px;
+  font-size: 24px;
+  font-weight: bolder;
+}
+.linkArea {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+.link {
+  margin: 0 10px;
+  font-size: 18px;
+  color: #515767;
+  text-decoration: none;
+  &:hover {
+    color: #1e88ff;
+  }
+}
+.active  {
+  color: #1e80ff;
+}
+.operationArea {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
