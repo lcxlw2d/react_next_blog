@@ -11,4 +11,8 @@ export const navs = [
     name: "标签",
     path: "/tag",
   },
+  {
+    name: "Instruments",
+    path: "/instruments",
+  },
 ]

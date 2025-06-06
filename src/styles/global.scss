@@ -74,3 +74,13 @@ select {
 body {
   background-color: #fafafa;
 }
+
+:where(.css-dev-only-do-not-override-mc1tut).ant-divider-horizontal {
+  margin: 0;
+}
+:where(.css-dev-only-do-not-override-mc1tut).ant-input-group-wrapper-outlined .ant-input-group-addon {
+  background-color: transparent;
+}
+// :where(.css-dev-only-do-not-override-mc1tut).ant-input-group-wrapper-outlined .ant-input-group-addon:last-child {
+//   width: 80px;
+// }
