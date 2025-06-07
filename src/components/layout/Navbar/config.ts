@@ -8,11 +8,7 @@ export const navs = [
     path: "/info",
   },
   {
-    name: "标签",
-    path: "/tag",
-  },
-  {
-    name: "Instruments",
-    path: "/instruments",
+    name: "分类",
+    path: "/category",
   },
 ]
