@@ -3,23 +3,51 @@
 import Link from "next/link";
 import { navs } from "./config";
 import styles from "./style.module.scss";
-import { Button, Divider } from "antd";
+import { Button, Divider, Dropdown } from "antd";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import LoginModal from "components/LoginModal";
+import { getSupabaseClient } from "@/utils/supabase/client";
+import type { MenuProps } from 'antd';
 const NavBar = () => {
   const pathname = usePathname();
   const [isLogin, setIsLogin] = useState(false);
+  const supabase = getSupabaseClient();
+  const [user, setUser] = useState<any>(null);
+
   const handleLogin = () => {
     loginModalRef.current?.showModal();
   };
-  const onLogin = () => {
-    setIsLogin(true);
+  const onLogin = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    const user = session?.user;
+    console.log(user, '---')
+    setUser(user);
+    if (user) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
   };
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     setIsLogin(false);
   };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <Button type="link" danger onClick={handleLogout}>
+          退出登录
+        </Button>
+      ),
+    },
+  ];
   const loginModalRef = useRef(null);
+
+  useEffect(() => {
+    onLogin();
+  }, [])
 
   return (
     <section>
@@ -35,7 +63,10 @@ const NavBar = () => {
           }
         </div>
         <div className={styles.operationArea}>
-          {isLogin ? <Button type="primary" danger onClick={handleLogout}>退出登录</Button> : <Button type="primary" onClick={handleLogin}>登录</Button>}
+          {isLogin ?
+            <Dropdown menu={{ items }} placement="bottomLeft">
+              <Button>{user.email}</Button>
+            </Dropdown> : <Button type="primary" onClick={handleLogin}>登录</Button>}
         </div>
         <LoginModal ref={loginModalRef} onLogin={onLogin} />
       </header>
