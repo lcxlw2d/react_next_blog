@@ -224,6 +224,14 @@ const LoginModal = forwardRef<ChildHandle>((props, ref) => {
       props.onLogin("登录成功");
     }
   };
+  const handleGitHubLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+  };
 
   return (
     <Modal
@@ -247,9 +255,7 @@ const LoginModal = forwardRef<ChildHandle>((props, ref) => {
                 block
                 icon={<GithubOutlined />}
                 className={githubButton}
-                onClick={() => {
-
-                }}
+                onClick={handleGitHubLogin}
               >
                 使用Github登录
               </Button>
