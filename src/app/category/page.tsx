@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { List, Card, Spin, Alert, Typography, Empty } from 'antd';
+import { List, Card, Spin, Alert, Typography, Empty, Button } from 'antd';
 import { getSupabaseClient } from '@/utils/supabase/client';
-
+import { useRouter } from 'next/navigation';
 const { Title } = Typography;
 
 type Category = {
@@ -17,7 +17,7 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const router = useRouter();
   const supabase = getSupabaseClient();
 
   useEffect(() => {
@@ -38,12 +38,19 @@ export default function CategoriesPage() {
     fetchCategories();
   }, []);
 
+  const goToManageCategories = () => {
+    router.push('/categories/manage');
+  };
+
   if (loading) return <Spin tip="加载中..." />;
   if (error) return <Alert type="error" message="加载失败" description={error} />;
 
   return (
     <div style={{ padding: '24px' }}>
       <Title level={3}>分类</Title>
+      <div style={{ textAlign: 'right', margin: '10px 0' }}>
+        <Button type="primary" onCLick={goToManageCategories}>管理分类</Button>
+      </div>
       {
         categories.length ? (
           <List
