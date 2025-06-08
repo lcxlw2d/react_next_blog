@@ -35,7 +35,7 @@ export default function Home() {
       setLoading(true);
       const { data, error } = await supabase
         .from('posts')
-        .select('id, title, author_id, created_at, content, category_id')
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (!error && data) {
@@ -76,7 +76,7 @@ export default function Home() {
             <Empty description="暂无文章" />
           ) : (
             <List
-              grid={{ gutter: 24, column: 3 }} // ✅ 每行 3 列
+              grid={{ gutter: 24, column: 3 }}
               dataSource={articles}
               renderItem={(item) => (
                 <List.Item>
