@@ -49,7 +49,7 @@ export default function CategoriesPage() {
     <div style={{ padding: '24px' }}>
       <Title level={3}>分类</Title>
       <div style={{ textAlign: 'right', margin: '10px 0' }}>
-        <Button type="primary" onCLick={goToManageCategories}>管理分类</Button>
+        <Button type="primary" onClick={goToManageCategories}>管理分类</Button>
       </div>
       {
         categories.length ? (
