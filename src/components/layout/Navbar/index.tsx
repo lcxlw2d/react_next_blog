@@ -3,18 +3,20 @@
 import Link from "next/link";
 import { navs } from "./config";
 import styles from "./style.module.scss";
-import { Button, Divider, Dropdown } from "antd";
+import { Button, Divider, Dropdown, Input } from "antd";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import LoginModal from "components/LoginModal";
 import { getSupabaseClient } from "@/utils/supabase/client";
 import type { MenuProps } from 'antd';
+const { Search } = Input;
+import { useRouter } from "next/navigation";
 const NavBar = () => {
   const pathname = usePathname();
   const [isLogin, setIsLogin] = useState(false);
   const supabase = getSupabaseClient();
   const [user, setUser] = useState<any>(null);
-
+  const router = useRouter();
   const handleLogin = () => {
     loginModalRef.current?.showModal();
   };
@@ -49,6 +51,10 @@ const NavBar = () => {
     onLogin();
   }, [])
 
+  const onSearch = (value: string) => {
+    router.push(`/search?keyword=${value}`);
+  };
+
   return (
     <section>
       <header className={styles.navbar}>
@@ -63,6 +69,14 @@ const NavBar = () => {
           }
         </div>
         <div className={styles.operationArea}>
+          <div style={{ width: "240px", marginRight: "10px" }}>
+            <Search
+              placeholder="搜索文章"
+              allowClear
+              enterButton="搜索"
+              onSearch={onSearch}
+            />
+          </div>
           {isLogin ?
             <Dropdown menu={{ items }} placement="bottomLeft">
               <Button>{user.email}</Button>

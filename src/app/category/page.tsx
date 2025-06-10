@@ -39,7 +39,11 @@ export default function CategoriesPage() {
   }, []);
 
   const goToManageCategories = () => {
-    router.push('/categories/manage');
+    router.push('/category/manage');
+  };
+
+  const goToCategoryArticleList = (categoryId: string) => {
+    router.push(`/category/${categoryId}`);
   };
 
   if (loading) return <Spin tip="加载中..." />;
@@ -63,8 +67,7 @@ export default function CategoriesPage() {
                   hoverable
                   style={{ borderRadius: 12 }}
                   onClick={() => {
-                    // 后续可跳转到分类详情页
-                    console.log('点击分类:', item.name);
+                    goToCategoryArticleList(item.id)
                   }}
                 >
                   {item.description}

@@ -7,7 +7,7 @@ import { Typography, Spin, Alert, Card, Button, message, Popconfirm } from 'antd
 
 const { Title, Paragraph, Text } = Typography;
 import { useRouter } from 'next/navigation';
-
+import Link from 'next/link';
 type PostDetail = {
   id: string;
   title: string;
@@ -34,7 +34,7 @@ export default function PostDetailPage() {
     const fetchPost = async () => {
       const { data, error } = await supabase
         .from('posts')
-        .select('id, title, content, created_at, author_id, category:category_id(name)')
+        .select('id, title, content, created_at, author_id, category:category_id(id, name)')
         .eq('id', id)
         .single();
 
@@ -95,7 +95,11 @@ export default function PostDetailPage() {
           {delButton}
         </div>
         <Text type="secondary">
-          分类：{post.category?.name || '未分类'} ｜ 创建时间：{new Date(post.created_at).toLocaleString()}
+          分类：
+          <Link href="/category/[id]" as={`/category/${post.category?.id}`}>
+            {post.category?.name || '未分类'}
+          </Link>
+          ｜ 创建时间：{new Date(post.created_at).toLocaleString()}
         </Text>
         <Paragraph style={{ marginTop: '1rem', whiteSpace: 'pre-wrap' }}>{post.content}</Paragraph>
       </Card>

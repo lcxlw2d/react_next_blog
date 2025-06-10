@@ -7,23 +7,6 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import { useRouter } from "next/navigation";
 import { getSupabaseClient } from '@/utils/supabase/client'
-
-// const articles = [
-//   {
-//     id: '1',
-//     title: '使用 Supabase 构建博客系统',
-//     author: '张三',
-//     created_at: '2025-06-07T10:12:00Z',
-//     content: 'Supabase 是一个开源的 Firebase 替代品，适合快速构建现代应用。它内置 Auth、数据库、存储和实时功能...',
-//   },
-//   {
-//     id: '2',
-//     title: 'React 与 Ant Design 快速入门',
-//     author: '李四',
-//     created_at: '2025-06-06T15:40:00Z',
-//     content: 'Ant Design 是阿里出品的一套企业级 UI 组件库，在 React 中使用极为流行，尤其适合后台系统和内容展示类项目...',
-//   },
-// ];
 export default function Home() {
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
@@ -45,7 +28,7 @@ export default function Home() {
       }
     }
     fetchArticles();
-  })
+  }, [])
   const handleCreateArticle = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     const user = session?.user;
